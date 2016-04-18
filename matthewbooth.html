@@ -1,0 +1,875 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+
+<!--<title>MAIN | M. Booth</title>-->
+<title>M. Booth</title>
+
+<meta name="description" content="Matthew Booth is a Canadian artist living in Brooklyn, NY. In 2011 he received an MFA from the Yale University School of Art. He is co-founder and -editor of Pyramid Power and of Picture Magazine, and is co-founder of Top Top, an artists' space in Brooklyn. His solo exhibition Inside the White Cube was on view at White Cube, London, in early 2013." />
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<link rel='stylesheet' href='http://www.boothmatthew.com/ndxz-studio/site/Booth/style5.css' type='text/css' />
+<!--[if lte IE 6]>
+<link rel='stylesheet' href='http://www.boothmatthew.com/ndxz-studio/site/Booth/ie.css' type='text/css' />
+<![endif]-->
+
+<style type='text/css'>
+#d-image { }
+	#d-image img { border: none;}
+	
+	#closeimg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10;}
+
+
+	#randomlink, #chronolink { padding: 0 4px; margin: 0 -4px; display: block; }
+	
+	#img-container {display: none}
+
+	.grow { float:left; position: relative;  }
+	.thumb {  padding:0; text-align:left; overflow: hidden;}
+
+	.grow strong { margin-top: 3px; text-align: left; display: block; font-weight: normal; text-align: center; display: none; }
+	.grow em { font-style: normal; display: none; text-align: center; }
+	
+	.image {
+	clear: both;
+	float: left;
+	width: 240px;
+	margin:  0 0 65px 0;
+	padding: 0;
+	text-align: center;
+	}
+	
+	.img-bot {display: none}
+
+	.image img {max-width: 200px; max-height: 200px; }
+	
+	.caption {
+	float: left;
+	padding: 0px;
+ 	 margin: 0 0 65px 60px;
+ 	 width: 600px;
+ 	 color: #000;
+ 	 }
+
+  .wrapper {
+	  padding: 0;
+	  margin: 100px auto;
+	  text-align: left;
+	  min-width: 900px; 
+	  max-width: 70%;
+      min-height: 100%; /* Set to minimum height so overflow doesn't get hidden */
+	  overflow-y: hidden; /* HIDE overflow; I know, it doesn't make much sense */
+	}	
+
+	#footer div {display: none}
+	
+	.thumb-it { _top: 50%; vertical-align: top; text-align: left; padding: 0; }
+	.thumb-img { display:block;}
+</style>
+
+<script type='text/javascript' src='http://www.boothmatthew.com/ndxz-studio/site/js/jquery.js'></script>
+<script type='text/javascript' src='http://www.boothmatthew.com/ndxz-studio/site/js/cookie.js'></script>
+<script type='text/javascript' src='http://www.boothmatthew.com/ndxz-studio/site/js/jquery.scrollTo-min.js'></script>
+
+<script type='text/javascript' src='http://www.boothmatthew.com/mint/?js'></script>
+<script src='http://www.boothmatthew.com/testing/ndxz-studio/site/Booth/js/jquery.masonry.min.js'></script>
+
+<script type='text/javascript'>
+path = 'http://www.boothmatthew.com/files/gimgs/';
+
+$(document).ready(function()
+{
+	setTimeout('move_up()', 1);
+//	vidswap();
+});
+
+$( window ).load(function() { 
+	margins();
+});
+
+</script>
+
+<style type='text/css'>#videodiv {z-index: 10;}</style>
+
+<script>
+var style = '';
+
+if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+    style = '<style type="text/css">#videodiv {z-index: 60;}</style>';
+};
+
+document.head.insertAdjacentHTML( 'beforeEnd', style );
+</script>
+
+<script type='text/javascript'>
+	
+	function cancelProp(e) {
+	e.cancelBubble = true;
+	if (e.stopPropagation) e.stopPropagation();
+	}
+
+
+		
+		function removeHash () { 
+    var scrollV, scrollH, loc = window.location;
+    if ('pushState' in history)
+        history.pushState('', document.title, loc.pathname + loc.search);
+    else {
+        // Prevent scrolling by storing the page's current scroll offset
+        scrollV = document.body.scrollTop;
+        scrollH = document.body.scrollLeft;
+
+        loc.hash = '';
+
+        // Restore the scroll offset, should be flicker free
+        document.body.scrollTop = scrollV;
+        document.body.scrollLeft = scrollH;
+    }
+}
+
+
+function showinfo() {
+	window.location.hash = '#info';
+	}
+
+
+function margins() {
+		  $( '.img-bot' ).each(function() {
+		      $(this).css({
+          'margin-left' : '-' + (0.5 * $(this).width()) + 'px',
+          'margin-top'  : '-' + (0.5 * $(this).height()) + 'px',
+          'display'		:	'inline'
+            })
+		  });
+	};
+
+
+
+function imgresize() {
+        var wh = $(window).height();
+        var ww = $(window).width();
+
+  $( '.img-bot' ).each(function() {
+	  
+	  	    var self = $(this);
+
+	  
+	  var ih = self.height();
+	  var iw = self.width();
+	  
+	  var nh = wh * 0.70;
+	  var nw = ww * 0.70;
+	  
+    if ( (ww / wh) > (iw / ih) ) {
+      self.height(nh);
+      self.width('auto');
+      var calcwidth = (iw / ih) * nh;
+      		      $(this).css({
+          'margin-left' : '-' + (0.5 * calcwidth) + 'px',
+          'margin-top'  : '-' + (0.5 * $(this).height()) + 'px'
+            });
+
+    } else {
+      self.height('auto');
+      self.width(nw);
+      var calcheight = (ih / iw) * nw;
+      		      $(this).css({
+          'margin-left' : '-' + (0.5 * $(this).width()) + 'px',
+          'margin-top'  : '-' + (0.5 * calcheight) + 'px'
+            });
+    };
+    self.css({
+              'position'    : 'absolute',
+              'left'        : '50%',
+              'top'         : '50%',
+			  'cursor'  : 'pointer'
+            })
+});
+};
+
+    $(window).bind('resize', function(){
+imgresize();
+    });
+
+	
+// was:	document.title='Info | MAIN | M. Booth'
+//	document.title='M. Booth | MAIN'
+	
+	if (window.location.pathname==='/' && window.location.hash==='') {
+	document.title='M. Booth';
+}
+	
+	
+	
+//function vidswap() {
+//$( '#MDC img.img-bot' ).replaceWith( '<video autoplay loop class="img-bot" style="height: 1500px; width: 924px; z-index: 60; display: none"> <source src="http://www.boothmatthew.com/ndxz-studio/site/img/MDC-WEB27.mp4" type="video/mp4"></video>' );
+//margins();
+//}
+
+
+//$(document).ready(function()
+//{
+//document.title = 'M. Booth';
+//});
+
+
+
+
+
+	$(function () {
+  var tabContainers = $('div.pic, #img-container, #menu, #footer');
+  tabContainers.hide().filter(':first').show();
+  
+  $(window).bind('hashchange', function () {
+  _gaq.push(['_trackPageview',location.pathname + location.search  + location.hash]);
+  
+      var hash = window.location.hash || $('.thumb-img:first').attr('href');
+	if(window.location.hash === '#'){var hash = '#img-container, #menu, #footer'};
+	if(window.location.hash === '#info'){var hash = '#img-container, #menu, #footer'};
+
+	if(window.location.hash === ''){window.location.hash = $('.thumb-img:first').attr('href')};
+	
+
+  	
+  	if(document.getElementById('img-container').style.display != 'none'){
+	scrollLeftA = window.pageXOffset;
+	scrollTopA = window.pageYOffset;
+	
+//	scrollLeftIMG = 0;
+//	scrollTopIMG = 0;
+
+    
+    tabContainers.hide();
+    tabContainers.filter(hash).show();
+  }
+  else {
+  
+//	scrollLeftIMG = window.pageXOffset;
+//	scrollTopIMG = window.pageYOffset;
+    tabContainers.hide();
+    tabContainers.filter(hash).show();
+    if(typeof scrollLeftA === 'undefined'){
+	scrollLeftA = 0;};
+    if(typeof scrollTopA === 'undefined'){
+	scrollTopA = 0;};
+	$.scrollTo({top:scrollTopA, left:scrollLeftA} );
+  }
+//  if(window.location.hash != ''){
+//  	if(window.location.hash != '#'){
+//	$.scrollTo({top:scrollTopIMG, left:scrollLeftIMG } );
+//	}
+//  }
+  
+  
+  imgresize();
+  
+    });
+  $(window).trigger( 'hashchange' );
+
+});
+
+
+
+	
+</script>
+
+
+<!-- Random background tiled 
+<style type='text/css'>body { background: url(http://www.boothmatthew.com/backgrounds/) repeat;
+background-position: 215px 0; }</style>
+
+-->
+
+<base target="_top">
+
+<!-- Google Analytics -->
+<script type='text/javascript'>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-20600267-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+<body class='section-1'>
+
+<!--
+	
+<div id="menu">
+
+<div class="column" style="position: absolute; left: 0">
+<div id="namepop">
+	<ul>
+		<li><a href="http://www.boothmatthew.com">Matthew Booth</a>
+			<ul>
+				<li style="max-width: 600px">Matthew Booth is a Canadian artist living in Brooklyn, NY.</li> 
+				<li style="max-width: 600px">He holds an MFA from the Yale School of Art.</li> 
+				<li style="max-width: 600px">Inside the White Cube was on view at White Cube, London, in 2013.</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+</div>
+
+
+
+
+
+<div class="column" style="position: absolute; left: 33%; ">
+<div id="filterpop">
+	<ul>
+		<li><a href="#" onclick="return false;">Filter</a>
+				<ul>
+<li class='active'><a href='http://www.boothmatthew.com/' onclick="do_click();">MAIN</a></li>
+<li><a href='http://www.boothmatthew.com/archive/' onclick="do_click();">Archive</a></li>
+</ul>
+
+
+		</li>
+	</ul>
+</div>
+</div>
+
+
+
+<div class="column" style="position: absolute; left: 66%;">
+<div id="orderpop">
+	<ul>
+		<li><a href="#" onclick="return false;">Sort</a>
+			<ul>
+				<li><a href='#' onclick="randomize(); return false; "><span id='randomlink'>Random</span></a></li>
+				<li><a href='?o=c'><span id='chronolink'>Chronological</span></a></li>
+			</ul>
+		</li>
+	</ul>
+</div>
+</div>
+
+
+
+<div class="column" style="position: absolute; right: 0">
+<div id="emailpop">
+	<ul>
+		<li><a href="#" onclick="return false;">Email</a>
+			<ul>
+				<li><script type="text/javascript">
+/*<![CDATA[*/
+var emailriddlerarray=[115,116,117,100,105,111,64,98,111,111,116,104,109,97,116,116,104,101,119,46,99,111,109]
+var encryptedemail_id13='' //variable to contain encrypted email 
+for (var i=0; i<emailriddlerarray.length; i++)
+ encryptedemail_id13+=String.fromCharCode(emailriddlerarray[i])
+document.write('<a href="mailto:'+encryptedemail_id13+'">'+encryptedemail_id13+'</a>')
+/*]]>*/
+</script></li>
+			</ul>
+		</li>
+	</ul>
+</div>
+</div>
+
+
+
+</div>
+
+-->
+
+
+<div id='content'>
+<div class='container'>
+<div class='wrapper'>
+<!-- text and image -->
+<!--[if lte IE 6]><style type='text/css'>.thumb-img { #top: -50%; }</style><![endif]-->
+
+<div id='img-container'><div id='nameinfo'><p>Matthew Booth</p>
+	    <p>Studio: 75 19 St, Brooklyn, NY<br />
+		    Contact: <script type='text/javascript'>
+/*<![CDATA[*/
+var emailriddlerarray=[115,116,117,100,105,111,64,98,111,111,116,104,109,97,116,116,104,101,119,46,99,111,109]
+var encryptedemail_id13='' //variable to contain encrypted email 
+for (var i=0; i<emailriddlerarray.length; i++)
+ encryptedemail_id13+=String.fromCharCode(emailriddlerarray[i])
+document.write('<a href="mailto:'+encryptedemail_id13+'">'+encryptedemail_id13+'</a>')
+/*]]>*/</script>
+	    </p></div>
+
+<div class='image'>
+<a href='#MDC' class='thumb-img'><img src='http://www.boothmatthew.com/files/gimgs/th-1_matthewbooth-mdc.jpg' width='123' height='200' alt='2013<br />6 min. video loop on 40 in. Samsung 400UX-3 commercial display<br />Video: 34 7/8 × 19 5/8 in.<br />Display: 36 × 20 3/4 × 4 5/8 in.<br />Ed. 5 + 2 AP' title='Milk Drop Coronet (still)&nbsp;' id='img1' /></a>
+</div>
+<div class='caption'><p>Milk Drop Coronet (still)&nbsp;</p><p>2013<br />6 min. video loop on 40 in. Samsung 400UX-3 commercial display<br />Video: 34 7/8 × 19 5/8 in.<br />Display: 36 × 20 3/4 × 4 5/8 in.<br />Ed. 5 + 2 AP</p>
+</div>
+
+<div class='image'>
+<a href='#STLI' class='thumb-img'><img src='http://www.boothmatthew.com/files/gimgs/th-1_matthewbooth-stli.jpg' width='200' height='163' alt='2013<br />Pigment print, frame<br />Image: 24 × 32 in.<br />Frame: 30 × 38 × 2 in.<br />Ed. 5 + 2 AP' title='Still life&nbsp;' id='img2' /></a>
+</div>
+<div class='caption'><p>Still life&nbsp;</p><p>2013<br />Pigment print, frame<br />Image: 24 × 32 in.<br />Frame: 30 × 38 × 2 in.<br />Ed. 5 + 2 AP</p>
+</div>
+
+<div class='image'>
+<a href='#SPST' class='thumb-img'><img src='http://www.boothmatthew.com/files/gimgs/th-1_matthewbooth-spst.jpg' width='164' height='200' alt='2013<br />Pigment print, frame<br />Image: 24 × 18 in.<br />Frame: 30 × 24 × 2 in.<br />Ed. 5 + 2 AP' title='Splash study&nbsp;' id='img3' /></a>
+</div>
+<div class='caption'><p>Splash study&nbsp;</p><p>2013<br />Pigment print, frame<br />Image: 24 × 18 in.<br />Frame: 30 × 24 × 2 in.<br />Ed. 5 + 2 AP</p>
+</div>
+
+<div class='image'>
+<a href='#FSC' class='thumb-img'><img src='http://www.boothmatthew.com/files/gimgs/th-1_matthewbooth-fsc.jpg' width='200' height='163' alt='2013<br />Pigment print, frame<br />Image: 24 × 32 in.<br />Frame: 30 × 38 × 2 in.<br />Ed. 5 + 2 AP' title='Fortune Sound Club&nbsp;' id='img4' /></a>
+</div>
+<div class='caption'><p>Fortune Sound Club&nbsp;</p><p>2013<br />Pigment print, frame<br />Image: 24 × 32 in.<br />Frame: 30 × 38 × 2 in.<br />Ed. 5 + 2 AP</p>
+</div>
+
+<div class='image'>
+<a href='#RRP' class='thumb-img'><img src='http://www.boothmatthew.com/files/gimgs/th-1_matthewbooth-rrp.jpg' width='158' height='200' alt='2012<br />Pigment print, frame<br />Image: 66 2/3 × 50 in.<br />Frame: 72 2/3 × 56 × 2 1/2 in.<br />Ed. 5 + 2 AP' title='Rockford radial planer, Abbotsford, BC&nbsp;' id='img5' /></a>
+</div>
+<div class='caption'><p>Rockford radial planer, Abbotsford, BC&nbsp;</p><p>2012<br />Pigment print, frame<br />Image: 66 2/3 × 50 in.<br />Frame: 72 2/3 × 56 × 2 1/2 in.<br />Ed. 5 + 2 AP</p>
+</div>
+
+<div class='image'>
+<a href='#FS' class='thumb-img'><img src='http://www.boothmatthew.com/files/gimgs/th-1_matthewbooth-lmt.jpg' width='200' height='163' alt='2012<br />Pigment print, frame<br />Image: 26 × 34 5/8 in.<br />Frame: 32 × 40 5/8 × 2 in.<br />Ed. 5 + 2 AP' title='FS: Linhof Master Technika 2000&nbsp;' id='img6' /></a>
+</div>
+<div class='caption'><p>FS: Linhof Master Technika 2000&nbsp;</p><p>2012<br />Pigment print, frame<br />Image: 26 × 34 5/8 in.<br />Frame: 32 × 40 5/8 × 2 in.<br />Ed. 5 + 2 AP</p>
+</div>
+
+<div class='image'>
+<a href='#EMLI' class='thumb-img'><img src='http://www.boothmatthew.com/files/gimgs/th-1_matthewbooth-emli.jpg' width='200' height='153' alt='2012<br />Two pigment prints, frames<br />Ea. image: 69 × 43 in.<br />Ea. frame: 70 × 44 × 2 1/2 in.<br />Ed. 5 + 2 AP' title='Emergency lighting, Manhattan Municipal Building, October 30, 2012&nbsp;' id='img7' /></a>
+</div>
+<div class='caption'><p>Emergency lighting, Manhattan Municipal Building, October 30, 2012&nbsp;</p><p>2012<br />Two pigment prints, frames<br />Ea. image: 69 × 43 in.<br />Ea. frame: 70 × 44 × 2 1/2 in.<br />Ed. 5 + 2 AP</p>
+</div>
+
+<div class='image'>
+<a href='#FLT' class='thumb-img'><img src='http://www.boothmatthew.com/files/gimgs/th-1_matthewbooth-flt.jpg' width='200' height='161' alt='2011<br />Pigment print, frame<br />Image: 38 × 50 5/8 in.<br />Frame: 44 × 56 5/8 × 2 in.<br />Ed. 5 + 2 AP' title='Fluorescent tubes, New Haven, CT&nbsp;' id='img8' /></a>
+</div>
+<div class='caption'><p>Fluorescent tubes, New Haven, CT&nbsp;</p><p>2011<br />Pigment print, frame<br />Image: 38 × 50 5/8 in.<br />Frame: 44 × 56 5/8 × 2 in.<br />Ed. 5 + 2 AP</p>
+</div>
+
+<div class='image'>
+<a href='#STSU' class='thumb-img'><img src='http://www.boothmatthew.com/files/gimgs/th-1_matthewbooth-stsu.jpg' width='158' height='200' alt='2011<br />Pigment print, frame<br />Image: 37 1/3 × 28 in.<br />Frame: 38 1/3 × 29 × 2 in.<br />Ed. 5 + 2 AP' title='Studio surfaces&nbsp;' id='img9' /></a>
+</div>
+<div class='caption'><p>Studio surfaces&nbsp;</p><p>2011<br />Pigment print, frame<br />Image: 37 1/3 × 28 in.<br />Frame: 38 1/3 × 29 × 2 in.<br />Ed. 5 + 2 AP</p>
+</div>
+
+<div class='image'>
+<a href='#DEZ' class='thumb-img'><img src='http://www.boothmatthew.com/files/gimgs/th-1_matthewbooth-dez.jpg' width='200' height='161' alt='Collaboration with <a href="http://joegf.com">Joe Graham-Felsen</a></p><p>2011<br />Pigment print, frame<br />Image: 42 × 56 in.<br />Frame: 48 × 62 × 2 1/2 in.<br />Ed. 5 + 2 AP' title='Dezember 2003&nbsp;' id='img10' /></a>
+</div>
+<div class='caption'><p>Dezember 2003&nbsp;</p><p>Collaboration with <a href="http://joegf.com">Joe Graham-Felsen</a></p><p>2011<br />Pigment print, frame<br />Image: 42 × 56 in.<br />Frame: 48 × 62 × 2 1/2 in.<br />Ed. 5 + 2 AP</p>
+</div>
+
+<div class='image'>
+<a href='#PML' class='thumb-img'><img src='http://www.boothmatthew.com/files/gimgs/th-1_matthewbooth-pml.jpg' width='200' height='162' alt='2010<br />Pigment print, frame<br />Image: 32 × 42 5/8 in.<br />Frame: 38 × 48 5/8 × 2 in.<br />Ed. 5 + 2 AP' title='Phil M. Leonard, Century City, 1988&nbsp;' id='img11' /></a>
+</div>
+<div class='caption'><p>Phil M. Leonard, Century City, 1988&nbsp;</p><p>2010<br />Pigment print, frame<br />Image: 32 × 42 5/8 in.<br />Frame: 38 × 48 5/8 × 2 in.<br />Ed. 5 + 2 AP</p>
+</div>
+
+<div class='image'>
+<a href='#JGF' class='thumb-img'><img src='http://www.boothmatthew.com/files/gimgs/th-1_matthewbooth-jgf.jpg' width='200' height='167' alt='2010<br />Pigment print, frame<br />Image: 18 × 24 in.<br />Frame: 24 × 30 × 2 in.<br />Ed. 5 + 2 AP' title='Joe Graham-Felsen&nbsp;' id='img12' /></a>
+</div>
+<div class='caption'><p>Joe Graham-Felsen&nbsp;</p><p>2010<br />Pigment print, frame<br />Image: 18 × 24 in.<br />Frame: 24 × 30 × 2 in.<br />Ed. 5 + 2 AP</p>
+</div>
+
+<div class='image'>
+<a href='#PMVT' class='thumb-img'><img src='http://www.boothmatthew.com/files/gimgs/th-1_matthewbooth-pmvt.jpg' width='200' height='161' alt='2010<br />Pigment print, frame<br />Image: 42 × 56 in.<br />Frame: 48 × 62 × 2 1/2 in.<br />Ed. 5 + 2 AP' title='Putney Mountain, VT&nbsp;' id='img13' /></a>
+</div>
+<div class='caption'><p>Putney Mountain, VT&nbsp;</p><p>2010<br />Pigment print, frame<br />Image: 42 × 56 in.<br />Frame: 48 × 62 × 2 1/2 in.<br />Ed. 5 + 2 AP</p>
+</div>
+
+<div class='image'>
+<a href='#TBT' class='thumb-img'><img src='http://www.boothmatthew.com/files/gimgs/th-1_matthewbooth-tbt.jpg' width='200' height='157' alt='2010<br />Pigment print, frame<br />Image: 32 × 42 5/8 in.<br />Frame: 33 × 43 5/8 × 2 in.<br />Ed. 5 + 2 A' title='The Big Toe&nbsp;' id='img14' /></a>
+</div>
+<div class='caption'><p>The Big Toe&nbsp;</p><p>2010<br />Pigment print, frame<br />Image: 32 × 42 5/8 in.<br />Frame: 33 × 43 5/8 × 2 in.<br />Ed. 5 + 2 A</p>
+</div>
+
+<div class='image'>
+<a href='#DIEA' class='thumb-img'><img src='http://www.boothmatthew.com/files/gimgs/th-1_matthewbooth-diea.jpg' width='200' height='163' alt='2010<br />Pigment print, frame<br />Image: 24 × 32 in.<br />Frame: 30 × 38 × 2 in.<br />Ed. 5 + 2 AP' title='Diatomaceous earth&nbsp;' id='img15' /></a>
+</div>
+<div class='caption'><p>Diatomaceous earth&nbsp;</p><p>2010<br />Pigment print, frame<br />Image: 24 × 32 in.<br />Frame: 30 × 38 × 2 in.<br />Ed. 5 + 2 AP</p>
+</div>
+
+</div>
+<div id='d-image'>
+
+<div id='MDC' class='pic' style='display: block;'>
+		
+
+<a href='#STLI' >
+<img src='http://www.boothmatthew.com/files/gimgs/1_matthewbooth-mdc.jpg' style='width: 923px; height: 1500px; z-index: 60;' class='img-bot' />
+</a>
+
+<div style='overflow: hidden; margin: 0 auto;' onclick="showinfo(); return false;">
+<div style='width: auto; display: inline-block; position: relative; z-index: 40' onclick="cancelProp(event);">
+</div>
+</div>
+
+<div id='question' style='position: absolute; top: 35px; right: 45px; width: 45px; height:60px; z-index: 100'>
+<a href='#info'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/question.gif' style='width: 45px; height: auto; border: 0; outline: none' /></a>
+</div>
+
+<div id='closeimg' onclick="showinfo(); return false;"></div>
+<!--<div id='clockgif'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/blackhole90.png' border='0' style='z-index: 15'/><img src='http://www.boothmatthew.com/ndxz-studio/site/img/clockgiffinal.gif' border='0' style='margin-left: -96px; z-index: 16'/></div>-->
+<div id='loading'></div>
+
+</div>		
+
+
+<div id='STLI' class='pic' style='display: none;'>
+		
+
+<a href='#SPST' >
+<img src='http://www.boothmatthew.com/files/gimgs/1_matthewbooth-stli.jpg' style='width: 1500px; height: 1226px; z-index: 60;' class='img-bot' />
+</a>
+
+<div style='overflow: hidden; margin: 0 auto;' onclick="showinfo(); return false;">
+<div style='width: auto; display: inline-block; position: relative; z-index: 40' onclick="cancelProp(event);">
+</div>
+</div>
+
+<div id='question' style='position: absolute; top: 35px; right: 45px; width: 45px; height:60px; z-index: 100'>
+<a href='#info'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/question.gif' style='width: 45px; height: auto; border: 0; outline: none' /></a>
+</div>
+
+<div id='closeimg' onclick="showinfo(); return false;"></div>
+<!--<div id='clockgif'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/blackhole90.png' border='0' style='z-index: 15'/><img src='http://www.boothmatthew.com/ndxz-studio/site/img/clockgiffinal.gif' border='0' style='margin-left: -96px; z-index: 16'/></div>-->
+<div id='loading'></div>
+
+</div>		
+
+
+<div id='SPST' class='pic' style='display: none;'>
+		
+
+<a href='#FSC' >
+<img src='http://www.boothmatthew.com/files/gimgs/1_matthewbooth-spst.jpg' style='width: 1231px; height: 1500px; z-index: 60;' class='img-bot' />
+</a>
+
+<div style='overflow: hidden; margin: 0 auto;' onclick="showinfo(); return false;">
+<div style='width: auto; display: inline-block; position: relative; z-index: 40' onclick="cancelProp(event);">
+</div>
+</div>
+
+<div id='question' style='position: absolute; top: 35px; right: 45px; width: 45px; height:60px; z-index: 100'>
+<a href='#info'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/question.gif' style='width: 45px; height: auto; border: 0; outline: none' /></a>
+</div>
+
+<div id='closeimg' onclick="showinfo(); return false;"></div>
+<!--<div id='clockgif'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/blackhole90.png' border='0' style='z-index: 15'/><img src='http://www.boothmatthew.com/ndxz-studio/site/img/clockgiffinal.gif' border='0' style='margin-left: -96px; z-index: 16'/></div>-->
+<div id='loading'></div>
+
+</div>		
+
+
+<div id='FSC' class='pic' style='display: none;'>
+		
+
+<a href='#RRP' >
+<img src='http://www.boothmatthew.com/files/gimgs/1_matthewbooth-fsc.jpg' style='width: 1500px; height: 1226px; z-index: 60;' class='img-bot' />
+</a>
+
+<div style='overflow: hidden; margin: 0 auto;' onclick="showinfo(); return false;">
+<div style='width: auto; display: inline-block; position: relative; z-index: 40' onclick="cancelProp(event);">
+</div>
+</div>
+
+<div id='question' style='position: absolute; top: 35px; right: 45px; width: 45px; height:60px; z-index: 100'>
+<a href='#info'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/question.gif' style='width: 45px; height: auto; border: 0; outline: none' /></a>
+</div>
+
+<div id='closeimg' onclick="showinfo(); return false;"></div>
+<!--<div id='clockgif'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/blackhole90.png' border='0' style='z-index: 15'/><img src='http://www.boothmatthew.com/ndxz-studio/site/img/clockgiffinal.gif' border='0' style='margin-left: -96px; z-index: 16'/></div>-->
+<div id='loading'></div>
+
+</div>		
+
+
+<div id='RRP' class='pic' style='display: none;'>
+		
+
+<a href='#FS' >
+<img src='http://www.boothmatthew.com/files/gimgs/1_matthewbooth-rrp.jpg' style='width: 1183px; height: 1500px; z-index: 60;' class='img-bot' />
+</a>
+
+<div style='overflow: hidden; margin: 0 auto;' onclick="showinfo(); return false;">
+<div style='width: auto; display: inline-block; position: relative; z-index: 40' onclick="cancelProp(event);">
+</div>
+</div>
+
+<div id='question' style='position: absolute; top: 35px; right: 45px; width: 45px; height:60px; z-index: 100'>
+<a href='#info'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/question.gif' style='width: 45px; height: auto; border: 0; outline: none' /></a>
+</div>
+
+<div id='closeimg' onclick="showinfo(); return false;"></div>
+<!--<div id='clockgif'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/blackhole90.png' border='0' style='z-index: 15'/><img src='http://www.boothmatthew.com/ndxz-studio/site/img/clockgiffinal.gif' border='0' style='margin-left: -96px; z-index: 16'/></div>-->
+<div id='loading'></div>
+
+</div>		
+
+
+<div id='FS' class='pic' style='display: none;'>
+		
+
+<a href='#EMLI' >
+<img src='http://www.boothmatthew.com/files/gimgs/1_matthewbooth-lmt.jpg' style='width: 1500px; height: 1225px; z-index: 60;' class='img-bot' />
+</a>
+
+<div style='overflow: hidden; margin: 0 auto;' onclick="showinfo(); return false;">
+<div style='width: auto; display: inline-block; position: relative; z-index: 40' onclick="cancelProp(event);">
+</div>
+</div>
+
+<div id='question' style='position: absolute; top: 35px; right: 45px; width: 45px; height:60px; z-index: 100'>
+<a href='#info'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/question.gif' style='width: 45px; height: auto; border: 0; outline: none' /></a>
+</div>
+
+<div id='closeimg' onclick="showinfo(); return false;"></div>
+<!--<div id='clockgif'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/blackhole90.png' border='0' style='z-index: 15'/><img src='http://www.boothmatthew.com/ndxz-studio/site/img/clockgiffinal.gif' border='0' style='margin-left: -96px; z-index: 16'/></div>-->
+<div id='loading'></div>
+
+</div>		
+
+
+<div id='EMLI' class='pic' style='display: none;'>
+		
+
+<a href='#FLT' >
+<img src='http://www.boothmatthew.com/files/gimgs/1_matthewbooth-emli.jpg' style='width: 1500px; height: 1151px; z-index: 60;' class='img-bot' />
+</a>
+
+<div style='overflow: hidden; margin: 0 auto;' onclick="showinfo(); return false;">
+<div style='width: auto; display: inline-block; position: relative; z-index: 40' onclick="cancelProp(event);">
+</div>
+</div>
+
+<div id='question' style='position: absolute; top: 35px; right: 45px; width: 45px; height:60px; z-index: 100'>
+<a href='#info'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/question.gif' style='width: 45px; height: auto; border: 0; outline: none' /></a>
+</div>
+
+<div id='closeimg' onclick="showinfo(); return false;"></div>
+<!--<div id='clockgif'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/blackhole90.png' border='0' style='z-index: 15'/><img src='http://www.boothmatthew.com/ndxz-studio/site/img/clockgiffinal.gif' border='0' style='margin-left: -96px; z-index: 16'/></div>-->
+<div id='loading'></div>
+
+</div>		
+
+
+<div id='FLT' class='pic' style='display: none;'>
+		
+
+<a href='#STSU' >
+<img src='http://www.boothmatthew.com/files/gimgs/1_matthewbooth-flt.jpg' style='width: 1500px; height: 1209px; z-index: 60;' class='img-bot' />
+</a>
+
+<div style='overflow: hidden; margin: 0 auto;' onclick="showinfo(); return false;">
+<div style='width: auto; display: inline-block; position: relative; z-index: 40' onclick="cancelProp(event);">
+</div>
+</div>
+
+<div id='question' style='position: absolute; top: 35px; right: 45px; width: 45px; height:60px; z-index: 100'>
+<a href='#info'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/question.gif' style='width: 45px; height: auto; border: 0; outline: none' /></a>
+</div>
+
+<div id='closeimg' onclick="showinfo(); return false;"></div>
+<!--<div id='clockgif'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/blackhole90.png' border='0' style='z-index: 15'/><img src='http://www.boothmatthew.com/ndxz-studio/site/img/clockgiffinal.gif' border='0' style='margin-left: -96px; z-index: 16'/></div>-->
+<div id='loading'></div>
+
+</div>		
+
+
+<div id='STSU' class='pic' style='display: none;'>
+		
+
+<a href='#DEZ' >
+<img src='http://www.boothmatthew.com/files/gimgs/1_matthewbooth-stsu.jpg' style='width: 1183px; height: 1500px; z-index: 60;' class='img-bot' />
+</a>
+
+<div style='overflow: hidden; margin: 0 auto;' onclick="showinfo(); return false;">
+<div style='width: auto; display: inline-block; position: relative; z-index: 40' onclick="cancelProp(event);">
+</div>
+</div>
+
+<div id='question' style='position: absolute; top: 35px; right: 45px; width: 45px; height:60px; z-index: 100'>
+<a href='#info'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/question.gif' style='width: 45px; height: auto; border: 0; outline: none' /></a>
+</div>
+
+<div id='closeimg' onclick="showinfo(); return false;"></div>
+<!--<div id='clockgif'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/blackhole90.png' border='0' style='z-index: 15'/><img src='http://www.boothmatthew.com/ndxz-studio/site/img/clockgiffinal.gif' border='0' style='margin-left: -96px; z-index: 16'/></div>-->
+<div id='loading'></div>
+
+</div>		
+
+
+<div id='DEZ' class='pic' style='display: none;'>
+		
+
+<a href='#PML' >
+<img src='http://www.boothmatthew.com/files/gimgs/1_matthewbooth-dez.jpg' style='width: 1500px; height: 1204px; z-index: 60;' class='img-bot' />
+</a>
+
+<div style='overflow: hidden; margin: 0 auto;' onclick="showinfo(); return false;">
+<div style='width: auto; display: inline-block; position: relative; z-index: 40' onclick="cancelProp(event);">
+</div>
+</div>
+
+<div id='question' style='position: absolute; top: 35px; right: 45px; width: 45px; height:60px; z-index: 100'>
+<a href='#info'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/question.gif' style='width: 45px; height: auto; border: 0; outline: none' /></a>
+</div>
+
+<div id='closeimg' onclick="showinfo(); return false;"></div>
+<!--<div id='clockgif'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/blackhole90.png' border='0' style='z-index: 15'/><img src='http://www.boothmatthew.com/ndxz-studio/site/img/clockgiffinal.gif' border='0' style='margin-left: -96px; z-index: 16'/></div>-->
+<div id='loading'></div>
+
+</div>		
+
+
+<div id='PML' class='pic' style='display: none;'>
+		
+
+<a href='#JGF' >
+<img src='http://www.boothmatthew.com/files/gimgs/1_matthewbooth-pml.jpg' style='width: 1500px; height: 1215px; z-index: 60;' class='img-bot' />
+</a>
+
+<div style='overflow: hidden; margin: 0 auto;' onclick="showinfo(); return false;">
+<div style='width: auto; display: inline-block; position: relative; z-index: 40' onclick="cancelProp(event);">
+</div>
+</div>
+
+<div id='question' style='position: absolute; top: 35px; right: 45px; width: 45px; height:60px; z-index: 100'>
+<a href='#info'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/question.gif' style='width: 45px; height: auto; border: 0; outline: none' /></a>
+</div>
+
+<div id='closeimg' onclick="showinfo(); return false;"></div>
+<!--<div id='clockgif'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/blackhole90.png' border='0' style='z-index: 15'/><img src='http://www.boothmatthew.com/ndxz-studio/site/img/clockgiffinal.gif' border='0' style='margin-left: -96px; z-index: 16'/></div>-->
+<div id='loading'></div>
+
+</div>		
+
+
+<div id='JGF' class='pic' style='display: none;'>
+		
+
+<a href='#PMVT' >
+<img src='http://www.boothmatthew.com/files/gimgs/1_matthewbooth-jgf.jpg' style='width: 1500px; height: 1252px; z-index: 60;' class='img-bot' />
+</a>
+
+<div style='overflow: hidden; margin: 0 auto;' onclick="showinfo(); return false;">
+<div style='width: auto; display: inline-block; position: relative; z-index: 40' onclick="cancelProp(event);">
+</div>
+</div>
+
+<div id='question' style='position: absolute; top: 35px; right: 45px; width: 45px; height:60px; z-index: 100'>
+<a href='#info'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/question.gif' style='width: 45px; height: auto; border: 0; outline: none' /></a>
+</div>
+
+<div id='closeimg' onclick="showinfo(); return false;"></div>
+<!--<div id='clockgif'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/blackhole90.png' border='0' style='z-index: 15'/><img src='http://www.boothmatthew.com/ndxz-studio/site/img/clockgiffinal.gif' border='0' style='margin-left: -96px; z-index: 16'/></div>-->
+<div id='loading'></div>
+
+</div>		
+
+
+<div id='PMVT' class='pic' style='display: none;'>
+		
+
+<a href='#TBT' >
+<img src='http://www.boothmatthew.com/files/gimgs/1_matthewbooth-pmvt.jpg' style='width: 1500px; height: 1204px; z-index: 60;' class='img-bot' />
+</a>
+
+<div style='overflow: hidden; margin: 0 auto;' onclick="showinfo(); return false;">
+<div style='width: auto; display: inline-block; position: relative; z-index: 40' onclick="cancelProp(event);">
+</div>
+</div>
+
+<div id='question' style='position: absolute; top: 35px; right: 45px; width: 45px; height:60px; z-index: 100'>
+<a href='#info'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/question.gif' style='width: 45px; height: auto; border: 0; outline: none' /></a>
+</div>
+
+<div id='closeimg' onclick="showinfo(); return false;"></div>
+<!--<div id='clockgif'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/blackhole90.png' border='0' style='z-index: 15'/><img src='http://www.boothmatthew.com/ndxz-studio/site/img/clockgiffinal.gif' border='0' style='margin-left: -96px; z-index: 16'/></div>-->
+<div id='loading'></div>
+
+</div>		
+
+
+<div id='TBT' class='pic' style='display: none;'>
+		
+
+<a href='#DIEA' >
+<img src='http://www.boothmatthew.com/files/gimgs/1_matthewbooth-tbt.jpg' style='width: 1500px; height: 1180px; z-index: 60;' class='img-bot' />
+</a>
+
+<div style='overflow: hidden; margin: 0 auto;' onclick="showinfo(); return false;">
+<div style='width: auto; display: inline-block; position: relative; z-index: 40' onclick="cancelProp(event);">
+</div>
+</div>
+
+<div id='question' style='position: absolute; top: 35px; right: 45px; width: 45px; height:60px; z-index: 100'>
+<a href='#info'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/question.gif' style='width: 45px; height: auto; border: 0; outline: none' /></a>
+</div>
+
+<div id='closeimg' onclick="showinfo(); return false;"></div>
+<!--<div id='clockgif'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/blackhole90.png' border='0' style='z-index: 15'/><img src='http://www.boothmatthew.com/ndxz-studio/site/img/clockgiffinal.gif' border='0' style='margin-left: -96px; z-index: 16'/></div>-->
+<div id='loading'></div>
+
+</div>		
+
+
+<div id='DIEA' class='pic' style='display: none;'>
+		
+
+<a href='#MDC' >
+<img src='http://www.boothmatthew.com/files/gimgs/1_matthewbooth-diea.jpg' style='width: 1500px; height: 1226px; z-index: 60;' class='img-bot' />
+</a>
+
+<div style='overflow: hidden; margin: 0 auto;' onclick="showinfo(); return false;">
+<div style='width: auto; display: inline-block; position: relative; z-index: 40' onclick="cancelProp(event);">
+</div>
+</div>
+
+<div id='question' style='position: absolute; top: 35px; right: 45px; width: 45px; height:60px; z-index: 100'>
+<a href='#info'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/question.gif' style='width: 45px; height: auto; border: 0; outline: none' /></a>
+</div>
+
+<div id='closeimg' onclick="showinfo(); return false;"></div>
+<!--<div id='clockgif'><img src='http://www.boothmatthew.com/ndxz-studio/site/img/blackhole90.png' border='0' style='z-index: 15'/><img src='http://www.boothmatthew.com/ndxz-studio/site/img/clockgiffinal.gif' border='0' style='margin-left: -96px; z-index: 16'/></div>-->
+<div id='loading'></div>
+
+</div>		
+
+</div>
+</div>
+
+
+<!-- end text and image -->
+</div>
+</div>
+</div>
+
+<div id="footer">
+<div style="position: relative; top: 160px; padding-bottom: 24px">
+<p>© MB 2016<em> </em></p>
+</div>
+</div>
+
+<script>
+//$(function(){
+//  $('#img-container').masonry({
+    // options
+//    itemSelector : '.grow',
+//    columnWidth : 1,
+//    isResizable: true
+//  }).imagesLoaded(function() {
+//   $('#img-container').masonry('reload');
+//  });
+//});
+
+$(window).scroll(function(){
+  $('#menu').css('left',-$(window).scrollLeft());
+});
+</script>
+
+</body>
+</html>
